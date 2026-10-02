@@ -1,4 +1,27 @@
-import "./globals.css"
+import "./globals.css";
+import localFont from "next/font/local";
+
+const DMSans = localFont({
+  src: [
+    {
+      path: "./fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf",
+      weight: "300 700",
+      style: "normal",
+    },
+    {
+      path: "./fonts/DM_Sans/DMSans-Italic-VariableFont_opsz,wght.ttf",
+      weight: "300 700",
+      style: "italic",
+    },
+  ],
+  variable: "--font-DMSans",
+});
+
+const BricolageGrotesque = localFont({
+  src: "./fonts/Bricolage_Grotesque/BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf",
+  weight: "700",
+  variable: "--font-BricolageGrotesque",
+});
 
 export default function RootLayout({
   children,
@@ -6,15 +29,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={DMSans.variable + " " + BricolageGrotesque.variable}
+    >
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="./assets/images/favicon-32x32.png"
-        />
+        <title>Frontend Mentor | Weather app</title>
       </head>
       <body>{children}</body>
     </html>

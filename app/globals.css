@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-DMSans), sans-serif;
+  --font-bricolage-grotesque: var(--font-BricolageGrotesque), sans-serif;
+}

@@ -1,7 +1,9 @@
 export default function Mainpage() {
   return (
     <section>
-      <div>weather</div>
+      <div>
+        <p>weather</p>
+      </div>
     </section>
   );
 }
