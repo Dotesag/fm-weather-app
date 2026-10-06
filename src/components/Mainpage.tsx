@@ -1,9 +1,9 @@
+import Weather from "./Weather/Weather";
+
 export default function Mainpage() {
   return (
     <section>
-      <div>
-        <p>weather</p>
-      </div>
+      <Weather />
     </section>
   );
 }

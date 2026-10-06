@@ -3,7 +3,7 @@
 @theme {
   --font-sans: var(--font-DMSans), sans-serif;
   --font-bricolage-grotesque: var(--font-BricolageGrotesque), sans-serif;
-  
+
   --text-body: 1.125rem;
 
   --color-neutral-900: hsl(243, 96%, 9%);
@@ -18,4 +18,8 @@
 
   --color-blue-500: hsl(233, 67%, 56%);
   --color-blue-700: hsl(248, 70%, 36%);
+
+  --color-background: hsl(241, 95%, 9%);
+  --color-block: hsl(240, 26%, 20%);
+  --color-block-child: hsl(240, 22%, 24%);
 }

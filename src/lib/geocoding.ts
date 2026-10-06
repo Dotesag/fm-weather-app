@@ -36,6 +36,7 @@ export async function getCities(cityName: string): Promise<Array<City>> {
   if (!response.ok) {
     throw new Error(`HTTP error: ${response.status}`);
   }
+  
   const apiResponseCities: APIResponseCities = await response.json();
 
   if (!apiResponseCities.results) return [];

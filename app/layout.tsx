@@ -36,7 +36,7 @@ export default function RootLayout({
       <head>
         <title>Frontend Mentor | Weather app</title>
       </head>
-      <body className="text-body">{children}</body>
+      <body className="text-body bg-background text-white">{children}</body>
     </html>
   );
 }
