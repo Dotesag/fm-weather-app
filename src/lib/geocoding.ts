@@ -27,16 +27,19 @@ function apiCityToCity(apiCity: APICity): City {
   return city;
 }
 
-export async function getCities(cityName: string): Promise<Array<City>> {
+export async function getCities(
+  cityName: string,
+  abortSignal?: AbortSignal,
+): Promise<Array<City>> {
   const url =
     "https://geocoding-api.open-meteo.com/v1/search?name=" +
     encodeURIComponent(cityName) +
     "&count=4";
-  const response = await fetch(url);
+  const response = await fetch(url, { signal: abortSignal });
   if (!response.ok) {
     throw new Error(`HTTP error: ${response.status}`);
   }
-  
+
   const apiResponseCities: APIResponseCities = await response.json();
 
   if (!apiResponseCities.results) return [];

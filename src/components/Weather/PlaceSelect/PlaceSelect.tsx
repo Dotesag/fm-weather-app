@@ -2,17 +2,8 @@
 import { getCities } from "@/lib/geocoding";
 import type { City } from "@/types/city";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
-
-function debounce(fn: Function, delay: number) {
-  let timer: NodeJS.Timeout;
-  return function (...args: Array<any>) {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      fn(...args);
-    }, delay);
-  };
-}
+import { useEffect, useState, useRef } from "react";
+import { useMainContext } from "@/components/Mainpage";
 
 export default function PlaceSelect() {
   const [cityLoadStatus, setCityLoadStatus] = useState<
@@ -20,19 +11,34 @@ export default function PlaceSelect() {
   >("idle");
   const [cities, setCities] = useState<Array<City>>([]);
   const [inputValue, setInputValue] = useState<string>("");
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  const { setCity } = useMainContext();
 
   async function loadCities(cityName: string) {
     try {
+      abortControllerRef.current?.abort();
+      abortControllerRef.current = new AbortController();
+
       setCityLoadStatus("loading");
-      const loadedCities = await getCities(cityName);
+      const loadedCities = await getCities(
+        cityName,
+        abortControllerRef.current.signal,
+      );
       setCityLoadStatus("success");
       setCities(loadedCities);
     } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") return;
       setCityLoadStatus("error");
       console.error("Error while loading cities: " + error);
     }
   }
-  const debouncedLoadCities = useMemo(() => debounce(loadCities, 500), []);
+
+  useEffect(() => {
+    return () => {
+      abortControllerRef.current?.abort();
+    };
+  }, []);
 
   return (
     <form
@@ -40,7 +46,7 @@ export default function PlaceSelect() {
       onSubmit={(event) => {
         event.preventDefault();
         if (inputValue.trim() === "") return;
-        debouncedLoadCities(inputValue);
+        loadCities(inputValue);
       }}
     >
       <div className="bg-block py-3 max-w-108 w-full flex gap-3 rounded-xl relative items-center">
@@ -88,7 +94,10 @@ export default function PlaceSelect() {
               <button
                 type="button"
                 key={city.id}
-                className="text-sm px-1.5 py-2 w-full text-nowrap overflow-hidden flex rounded-lg duration-200 hover:bg-block-child hover:ring hover:ring-neutral-600"
+                className="text-sm px-1.5 py-2 w-full text-nowrap overflow-hidden flex rounded-lg duration-200 hover:bg-block-child hover:ring hover:ring-neutral-600 cursor-pointer"
+                onClick={() => {
+                  setCity(city);
+                }}
               >
                 {city.name +
                   (city.country ? ", " + city.country : "") +
