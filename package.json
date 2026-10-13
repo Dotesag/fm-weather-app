@@ -8,8 +8,7 @@
     "postcss": "^8.5.28",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "tailwindcss": "^4.3.3",
-    "typescript": "^7.0.2"
+    "tailwindcss": "^4.3.3"
   },
   "scripts": {
     "dev": "next dev",
@@ -17,5 +16,11 @@
     "start": "next start",
     "lint": "eslint",
     "lint:fix": "eslint --fix"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.4.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.71.1"
   }
 }

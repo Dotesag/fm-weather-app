@@ -40,7 +40,8 @@ export async function getCities(
     throw new Error(`HTTP error: ${response.status}`);
   }
 
-  const apiResponseCities: APIResponseCities = await response.json();
+  const apiResponseCities: APIResponseCities =
+    (await response.json()) as APIResponseCities;
 
   if (!apiResponseCities.results) return [];
   const cities: Array<City> = apiResponseCities.results.map(apiCityToCity);

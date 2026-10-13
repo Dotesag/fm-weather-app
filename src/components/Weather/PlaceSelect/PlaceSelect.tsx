@@ -12,6 +12,10 @@ export default function PlaceSelect() {
   const [cities, setCities] = useState<Array<City>>([]);
   const [inputValue, setInputValue] = useState<string>("");
   const abortControllerRef = useRef<AbortController | null>(null);
+  const [isSelectorOpen, setIsSelectorOpen] = useState<boolean>(false);
+
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const { setCity } = useMainContext();
 
@@ -30,9 +34,22 @@ export default function PlaceSelect() {
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") return;
       setCityLoadStatus("error");
-      console.error("Error while loading cities: " + error);
+      console.error("Error while loading cities:", error);
     }
   }
+
+  useEffect(() => {
+    const handleClickOutsideForm = (event: MouseEvent) => {
+      if (formRef.current && !formRef.current.contains(event.target as Node)) {
+        setIsSelectorOpen(false);
+      }
+    };
+    window.addEventListener("click", handleClickOutsideForm);
+
+    return () => {
+      window.removeEventListener("click", handleClickOutsideForm);
+    };
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -42,11 +59,24 @@ export default function PlaceSelect() {
 
   return (
     <form
+      ref={formRef}
       className="w-full min-w-60 h-11.5 flex justify-center gap-3 "
       onSubmit={(event) => {
         event.preventDefault();
         if (inputValue.trim() === "") return;
-        loadCities(inputValue);
+        void loadCities(inputValue);
+        setIsSelectorOpen(true);
+      }}
+      onKeyDown={(event) => {
+        event.preventDefault();
+        if (event.key === "Escape") {
+          if (isSelectorOpen) {
+            inputRef.current?.focus();
+            setIsSelectorOpen(false);
+          } else {
+            setInputValue("");
+          }
+        }
       }}
     >
       <div className="bg-block py-3 max-w-108 w-full flex gap-3 rounded-xl relative items-center">
@@ -61,17 +91,18 @@ export default function PlaceSelect() {
           Enter place:
         </label>
         <input
+          ref={inputRef}
           id="place-search"
           value={inputValue}
           placeholder="Search for a place..."
-          className="focus:outline-none placeholder:text-neutral-200 [&::-webkit-search-cancel-button]:appearance-none"
+          className="w-full mr-5 focus:outline-none rounded-sm placeholder:text-neutral-200 [&::-webkit-search-cancel-button]:appearance-none"
           onChange={(event) => {
             setInputValue(event.target.value);
           }}
           type="search"
         ></input>
         <div
-          className={`absolute w-full max-w-108 top-13.5 p-1.5 bg-block rounded-xl text-sm ${cityLoadStatus === "idle" ? "hidden" : ""}`}
+          className={`absolute w-full max-w-108 top-13.5 p-1.5 bg-block rounded-xl text-sm ${isSelectorOpen ? "" : "hidden"}`}
         >
           {cityLoadStatus === "loading" && (
             <div className="flex gap-2 px-2 py-1.5 items-center">
@@ -97,6 +128,9 @@ export default function PlaceSelect() {
                 className="text-sm px-1.5 py-2 w-full text-nowrap overflow-hidden flex rounded-lg duration-200 hover:bg-block-child hover:ring hover:ring-neutral-600 cursor-pointer"
                 onClick={() => {
                   setCity(city);
+                  inputRef.current?.focus();
+                  setIsSelectorOpen(false);
+                  setInputValue("");
                 }}
               >
                 {city.name +
