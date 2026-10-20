@@ -6,7 +6,7 @@ export default function Weather() {
   const { apiError } = useMainContext();
 
   return (
-    <div className="flex justify-center mt-50">
+    <div className="flex justify-center">
       {!apiError && <PlaceSelect />}
       {apiError && <ApiError />}
     </div>

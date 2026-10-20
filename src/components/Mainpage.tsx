@@ -8,6 +8,7 @@ import {
 } from "react";
 import Weather from "./Weather/Weather";
 import type { City } from "@/types/city";
+import Header from "./Header/Header";
 
 type MainContextType = {
   city: City | undefined;
@@ -32,7 +33,12 @@ export default function Mainpage() {
 
   return (
     <mainContext.Provider value={{ city, setCity, apiError, setApiError }}>
-      <Weather />
+      <div className="flex flex-col items-center w-full  ">
+        <div className="flex flex-col w-full max-w-58/100 ">
+          <Header />
+          <Weather />
+        </div>
+      </div>
     </mainContext.Provider>
   );
 }
