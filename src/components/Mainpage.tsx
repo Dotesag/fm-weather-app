@@ -34,7 +34,7 @@ export default function Mainpage() {
   return (
     <mainContext.Provider value={{ city, setCity, apiError, setApiError }}>
       <div className="flex flex-col items-center w-full  ">
-        <div className="flex flex-col w-full max-w-58/100 ">
+        <div className="flex flex-col w-full max-w-250 ">
           <Header />
           <Weather />
         </div>

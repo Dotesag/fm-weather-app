@@ -69,8 +69,8 @@ export default function PlaceSelect() {
         setIsSelectorOpen(true);
       }}
       onKeyDown={(event) => {
-        event.preventDefault();
         if (event.key === "Escape") {
+          event.preventDefault();
           if (isSelectorOpen) {
             inputRef.current?.focus();
             setIsSelectorOpen(false);
@@ -96,7 +96,7 @@ export default function PlaceSelect() {
           id="place-search"
           value={inputValue}
           placeholder="Search for a place..."
-          className="w-full mr-5 focus:outline-none rounded-sm placeholder:text-neutral-200 [&::-webkit-search-cancel-button]:appearance-none"
+          className="w-full mr-5 focus:outline-none rounded-sm placeholder:text-neutral-200 [&::-webkit-search-cancel-button]:appearance-none text-base"
           onChange={(event) => {
             setInputValue(event.target.value);
           }}
@@ -145,7 +145,7 @@ export default function PlaceSelect() {
         </div>
       </div>
       <button
-        className="bg-blue-500 px-5 flex items-center justify-center rounded-xl cursor-pointer"
+        className="bg-blue-500 px-5 flex items-center justify-center rounded-xl cursor-pointer hover:bg-blue-700 duration-200"
         type="submit"
       >
         Search

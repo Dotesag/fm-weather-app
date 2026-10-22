@@ -22,6 +22,21 @@ export type Weather = {
   timezone: string;
 };
 
-export type WindSpeedUnit = "kmh" | "mph";
-export type TemperatureUnit = "celsius" | "fahrenheit";
-export type PrecipitationUnit = "mm" | "inch";
+export const WIND_SPEED_UNITS = [
+  { name: "km/h", code: "kmh" },
+  { name: "mph", code: "mph" },
+] as const;
+
+export const TEMPERATURE_UNITS = [
+  { name: "Celsius (°C)", code: "celsius" },
+  { name: "Fahrenheit (°F)", code: "fahrenheit" },
+] as const;
+
+export const PRECIPITATION_UNITS = [
+  { name: "Millimeters (mm)", code: "mm" },
+  { name: "Inches (in)", code: "inch" },
+] as const;
+
+export type WindSpeedUnit = (typeof WIND_SPEED_UNITS)[number]["code"];
+export type TemperatureUnit = (typeof TEMPERATURE_UNITS)[number]["code"];
+export type PrecipitationUnit = (typeof PRECIPITATION_UNITS)[number]["code"];
