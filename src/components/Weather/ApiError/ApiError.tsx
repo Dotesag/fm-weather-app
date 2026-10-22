@@ -17,7 +17,7 @@ export default function ApiError() {
         Something went wrong
       </h1>
       <p className="text-sm text-neutral-300 w-90 text-center mb-4">
-        We couldn't connect to the server (API error). Please try again in a few
+        We couldn&rsquo;t connect to the server (API error). Please try again in a few
         moments.
       </p>
       <button

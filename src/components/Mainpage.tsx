@@ -9,12 +9,15 @@ import {
 import Weather from "./Weather/Weather";
 import type { City } from "@/types/city";
 import Header from "./Header/Header";
+import type { Units } from "@/types/weather";
 
 type MainContextType = {
   city: City | undefined;
   setCity: Dispatch<SetStateAction<City | undefined>>;
   apiError: boolean;
   setApiError: Dispatch<SetStateAction<boolean>>;
+  units: Units;
+  setUnits: Dispatch<SetStateAction<Units>>;
 };
 
 export const mainContext = createContext<MainContextType | null>(null);
@@ -30,9 +33,16 @@ export function useMainContext() {
 export default function Mainpage() {
   const [city, setCity] = useState<City>();
   const [apiError, setApiError] = useState<boolean>(false);
+  const [units, setUnits] = useState<Units>({
+    windSpeed: "kmh",
+    temperature: "celsius",
+    precipitation: "mm",
+  });
 
   return (
-    <mainContext.Provider value={{ city, setCity, apiError, setApiError }}>
+    <mainContext.Provider
+      value={{ city, setCity, apiError, setApiError, units, setUnits }}
+    >
       <div className="flex flex-col items-center w-full  ">
         <div className="flex flex-col w-full max-w-250 ">
           <Header />

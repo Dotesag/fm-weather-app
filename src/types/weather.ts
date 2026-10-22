@@ -40,3 +40,9 @@ export const PRECIPITATION_UNITS = [
 export type WindSpeedUnit = (typeof WIND_SPEED_UNITS)[number]["code"];
 export type TemperatureUnit = (typeof TEMPERATURE_UNITS)[number]["code"];
 export type PrecipitationUnit = (typeof PRECIPITATION_UNITS)[number]["code"];
+
+export type Units = {
+  windSpeed: WindSpeedUnit;
+  temperature: TemperatureUnit;
+  precipitation: PrecipitationUnit;
+};
