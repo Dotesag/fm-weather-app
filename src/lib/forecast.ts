@@ -12,6 +12,7 @@ export async function getWeatherForecast(
   windSpeedUnit?: WindSpeedUnit,
   temperatureUnit?: TemperatureUnit,
   precipitationUnit?: PrecipitationUnit,
+  abortSignal?: AbortSignal,
 ): Promise<Weather> {
   const params = {
     latitude: targetLatitude,
@@ -32,7 +33,8 @@ export async function getWeatherForecast(
     ...(precipitationUnit && { precipitation_unit: precipitationUnit }),
   };
   const url = "https://api.open-meteo.com/v1/forecast";
-  const responses = await fetchWeatherApi(url, params);
+  const fetchOptions: RequestInit = { signal: abortSignal };
+  const responses = await fetchWeatherApi(url, params, 3, 0.2, 1, fetchOptions);
 
   const response = responses[0];
 

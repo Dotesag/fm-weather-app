@@ -11,13 +11,14 @@ export default function PlaceSelect() {
   >("idle");
   const [cities, setCities] = useState<Array<City>>([]);
   const [inputValue, setInputValue] = useState<string>("");
-  const abortControllerRef = useRef<AbortController | null>(null);
   const [isSelectorOpen, setIsSelectorOpen] = useState<boolean>(false);
 
   const formRef = useRef<HTMLFormElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const { setCity, setApiError } = useMainContext();
+
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   async function loadCities(cityName: string) {
     try {
@@ -29,8 +30,8 @@ export default function PlaceSelect() {
         cityName,
         abortControllerRef.current.signal,
       );
-      setCityLoadStatus("success");
       setCities(loadedCities);
+      setCityLoadStatus("success");
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") return;
       setCityLoadStatus("error");
@@ -38,6 +39,7 @@ export default function PlaceSelect() {
       console.error("Error while loading cities:", error);
     }
   }
+
 
   useEffect(() => {
     const handleClickOutsideForm = (event: MouseEvent) => {
