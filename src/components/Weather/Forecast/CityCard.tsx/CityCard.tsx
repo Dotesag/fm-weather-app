@@ -1,4 +1,6 @@
 import { useMainContext } from "@/components/Mainpage";
+import { getWeatherIcon } from "@/lib/forecast";
+import Image from "next/image";
 
 export default function CityCard() {
   const { city, forecast } = useMainContext();
@@ -19,8 +21,17 @@ export default function CityCard() {
             })}
           </p>
         </div>
-        <div>
-          <p className="text-7xl font-bold italic">{Math.floor(forecast.current.temperature_2m)}°</p>
+        <div className="flex items-center gap-5">
+          <Image
+            src={getWeatherIcon(forecast.current.weather_code)}
+            width={320}
+            height={320}
+            alt="Drizzle"
+            className="w-20 h-20"
+          />
+          <p className="text-7xl font-bold italic">
+            {Math.floor(forecast.current.temperature_2m)}°
+          </p>
         </div>
       </div>
     )
