@@ -1,8 +1,21 @@
 import { City } from "@/types/city";
-import CityCard from "./CityCard.tsx/CityCard";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext, createContext } from "react";
 import { useMainContext } from "@/components/Mainpage";
 import { getWeatherForecast } from "@/lib/forecast";
+import CurrentForecast from "./CurrentForecast/CurrentForecast";
+
+export const forecastLoadStatusContext = createContext<
+  "idle" | "loading" | "success" | "error"
+>("idle");
+
+export function useForecastLoadStatusContext() {
+  const ctx = useContext(forecastLoadStatusContext);
+  if (!ctx) {
+    throw new Error("Error while using forecastLoadStatusContext");
+  } else {
+    return ctx;
+  }
+}
 
 export default function Forecast() {
   const { setApiError, units, setForecast, city } = useMainContext();
@@ -28,7 +41,9 @@ export default function Forecast() {
           controller.signal,
         );
         setForecast(loadedForecast);
-        setForecastLoadStatus("success");
+        setTimeout(() => {
+          setForecastLoadStatus("success");
+        }, 0.3);
       } catch (error) {
         if (error instanceof DOMException && error.name === "AbortError")
           return;
@@ -46,7 +61,9 @@ export default function Forecast() {
 
   return (
     <section className="w-full h-full">
-      <CityCard />
+      <forecastLoadStatusContext.Provider value={forecastLoadStatus}>
+        <CurrentForecast />
+      </forecastLoadStatusContext.Provider>
     </section>
   );
 }

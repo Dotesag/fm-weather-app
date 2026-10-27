@@ -27,7 +27,7 @@ export const mainContext = createContext<MainContextType | null>(null);
 export function useMainContext() {
   const ctx = useContext(mainContext);
   if (!ctx) {
-    throw new Error("useMainContext must be used within Mainpage");
+    throw new Error("Error while using useMainContext");
   }
   return ctx;
 }

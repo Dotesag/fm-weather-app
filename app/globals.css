@@ -24,3 +24,37 @@
   --color-block-child: hsl(240, 22%, 24%);
   --color-border: hsl(243, 23%, 30%);
 }
+
+.loading-bulb {
+  @apply w-2.5 h-2.5 bg-neutral-200 rounded-full;
+}
+
+.current-weather-parameter {
+  @apply bg-block border border-border rounded-xl basis-0 grow p-3.5 flex flex-col gap-3
+}
+
+.current-weather-parameter h3 {
+  @apply text-neutral-300 text-base
+}
+
+.current-weather-parameter p {
+  @apply text-2xl font-thin
+}
+
+@theme {
+  --animate-jump-1: jump 0.5s ease-in-out infinite alternate;
+  --animate-jump-2: jump 0.5s 0.12s ease-in-out infinite alternate;
+  --animate-jump-3: jump 0.5s 0.24s ease-in-out infinite alternate;
+
+  @keyframes jump {
+    0% {
+      transform: translate(0px, 0px);
+    }
+    30% {
+      transform: translate(0px, 0px);
+    }
+    100% {
+      transform: translate(0px, -6px);
+    }
+  }
+}

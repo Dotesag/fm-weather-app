@@ -40,7 +40,6 @@ export default function PlaceSelect() {
     }
   }
 
-
   useEffect(() => {
     const handleClickOutsideForm = (event: MouseEvent) => {
       if (formRef.current && !formRef.current.contains(event.target as Node)) {
@@ -105,7 +104,7 @@ export default function PlaceSelect() {
           type="search"
         ></input>
         <div
-          className={`absolute w-full max-w-108 top-13.5 p-1.5 bg-block rounded-xl text-sm ${isSelectorOpen ? "" : "hidden"}`}
+          className={`absolute z-30 w-full max-w-108 top-13.5 p-1.5 bg-block rounded-xl text-sm shadow-xl ${isSelectorOpen ? "" : "hidden"}`}
         >
           {cityLoadStatus === "loading" && (
             <div className="flex gap-2 px-2 py-1.5 items-center">
