@@ -3,6 +3,8 @@ import { useEffect, useState, useContext, createContext } from "react";
 import { useMainContext } from "@/components/Mainpage";
 import { getWeatherForecast } from "@/lib/forecast";
 import CurrentForecast from "./CurrentForecast/CurrentForecast";
+import DailyForecast from "./DailyForecast/DailyForecast";
+import HourlyForecast from "./HourlyForecast/HourlyForecast";
 
 export const forecastLoadStatusContext = createContext<
   "idle" | "loading" | "success" | "error"
@@ -60,9 +62,13 @@ export default function Forecast() {
   }, [city, units, setApiError, setForecast]);
 
   return (
-    <section className="w-full h-full">
+    <section className="w-full flex gap-6">
       <forecastLoadStatusContext.Provider value={forecastLoadStatus}>
-        <CurrentForecast />
+        <div className="w-full max-w-162 flex flex-col gap-10">
+          <CurrentForecast />
+          <DailyForecast />
+        </div>
+        <HourlyForecast />
       </forecastLoadStatusContext.Provider>
     </section>
   );
