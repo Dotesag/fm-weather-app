@@ -12,7 +12,7 @@ export default function Parameters() {
   const precipitationUnit = units.precipitation == "inch" ? "in" : "mm";
 
   return (
-    <div className="flex justify-between gap-5">
+    <div className="justify-between gap-5 flex-wrap  sm:flex grid grid-cols-2 grid-rows-2">
       <div className="current-weather-parameter">
         <h3>Feels like</h3>
         <p>{temperature ? `${Math.round(temperature)}°` : "–"}</p>

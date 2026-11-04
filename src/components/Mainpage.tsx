@@ -55,7 +55,7 @@ export default function Mainpage() {
         setForecast,
       }}
     >
-      <div className="flex flex-col items-center w-full  ">
+      <div className="flex flex-col items-center w-full px-5">
         <div className="flex flex-col w-full max-w-247">
           <Header />
           <WeatherBlock />

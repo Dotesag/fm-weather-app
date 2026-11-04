@@ -203,7 +203,7 @@ export default function Header() {
         </div>
       </div>
       {!apiError && (
-        <h1 className="font-bricolage-grotesque text-[44px] mt-12">
+        <h1 className="font-bricolage-grotesque text-[44px] mt-12 text-center">
           How&rsquo;s the sky looking today?
         </h1>
       )}

@@ -62,7 +62,7 @@ export default function Forecast() {
   }, [city, units, setApiError, setForecast]);
 
   return (
-    <section className="w-full flex gap-6">
+    <section className="w-full flex gap-6 flex-col sm:flex-row">
       <forecastLoadStatusContext.Provider value={forecastLoadStatus}>
         <div className="w-full max-w-162 flex flex-col gap-10">
           <CurrentForecast />

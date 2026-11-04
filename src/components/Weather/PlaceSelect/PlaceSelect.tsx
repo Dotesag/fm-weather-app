@@ -62,7 +62,7 @@ export default function PlaceSelect() {
   return (
     <form
       ref={formRef}
-      className="w-full min-w-60 h-11.5 flex justify-center gap-3 "
+      className="w-full min-w-60 sm:h-11.5 justify-center gap-3 sm:flex-row flex-col flex"
       onSubmit={(event) => {
         event.preventDefault();
         if (inputValue.trim() === "") return;
@@ -81,7 +81,7 @@ export default function PlaceSelect() {
         }
       }}
     >
-      <div className="bg-block py-3 max-w-108 w-full flex gap-3 rounded-xl relative items-center">
+      <div className="bg-block py-3 sm:max-w-108 w-full flex gap-3 rounded-xl relative items-center">
         <Image
           src={"/images/icon-search.svg"}
           width={21}
@@ -146,7 +146,7 @@ export default function PlaceSelect() {
         </div>
       </div>
       <button
-        className="bg-blue-500 px-5 flex items-center justify-center rounded-xl cursor-pointer hover:bg-blue-700 duration-200"
+        className="bg-blue-500 px-5 flex items-center justify-center rounded-xl cursor-pointer hover:bg-blue-700 duration-200 h-11.5"
         type="submit"
       >
         Search
