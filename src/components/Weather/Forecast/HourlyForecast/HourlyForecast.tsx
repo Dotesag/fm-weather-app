@@ -16,7 +16,7 @@ export default function HourlyForecast() {
         <button
           className={`bg-neutral-600 py-1 px-3.5 rounded-md flex gap-2 text-sm items-center ${forecastLoadStatus === "success" ? "cursor-pointer" : "pointer-events-none"}`}
         >
-          <p>-</p>
+          <p>–</p>
           <Image
             src={"/images/icon-dropdown.svg"}
             height={8}
