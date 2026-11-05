@@ -22,6 +22,13 @@ export type Weather = {
   timezone: string;
 };
 
+export type DailyWeather = {
+  time: Date;
+  weather_code: number;
+  temperature_2m_max: number;
+  temperature_2m_min: number;
+};
+
 export const WIND_SPEED_UNITS = [
   { name: "km/h", code: "kmh" },
   { name: "mph", code: "mph" },

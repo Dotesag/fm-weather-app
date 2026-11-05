@@ -31,7 +31,7 @@ export default function CityCard() {
               src={getWeatherIcon(forecast.current.weather_code)}
               width={320}
               height={320}
-              alt="Drizzle"
+              alt="Weather"
               className="w-20 h-20"
             />
             <p className="text-7xl font-bold italic">
