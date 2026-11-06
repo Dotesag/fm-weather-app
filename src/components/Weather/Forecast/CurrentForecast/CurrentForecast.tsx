@@ -4,7 +4,7 @@ import Parameters from "./Parameters/Parameters";
 
 export default function CurrentForecast() {
   return (
-    <div className="flex flex-col gap-6">
+    <div id="currentForecast" className="flex flex-col gap-6">
       <CityCard />
       <Parameters />
     </div>
