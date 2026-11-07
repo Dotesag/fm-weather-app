@@ -27,10 +27,10 @@ export default function HourlyForecast() {
 
   return (
     <div
-      className={`grow bg-block rounded-2xl p-5 flex flex-col gap-3`}
+      className={`grow bg-block rounded-2xl py-5 flex flex-col gap-3`}
       style={{ height: height }}
     >
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center px-5">
         <h2>Hourly forecast</h2>
         <button
           className={`bg-neutral-600 py-1 px-3.5 rounded-md flex gap-2 text-sm items-center ${forecastLoadStatus === "success" ? "cursor-pointer" : "pointer-events-none"}`}
@@ -45,11 +45,11 @@ export default function HourlyForecast() {
           />
         </button>
       </div>
-      <div className="flex flex-col w-full gap-3 overflow-y-scroll">
+      <div className="hourlyForecast flex flex-col w-full gap-3 overflow-y-scroll">
         {hourlyForecast.map((forecast, i) => (
           <div
             key={i}
-            className="h-12 w-full bg-block-child rounded-md border border-border shrink-0"
+            className="h-12.5 bg-block-child rounded-md border border-border shrink-0 mx-5"
           ></div>
         ))}
       </div>

@@ -30,15 +30,15 @@
 }
 
 .current-weather-parameter {
-  @apply bg-block border border-border rounded-xl basis-0 grow p-3.5 flex flex-col gap-3
+  @apply bg-block border border-border rounded-xl basis-0 grow p-3.5 flex flex-col gap-3;
 }
 
 .current-weather-parameter h3 {
-  @apply text-neutral-300 text-base
+  @apply text-neutral-300 text-base;
 }
 
 .current-weather-parameter p {
-  @apply text-2xl font-thin
+  @apply text-2xl font-thin;
 }
 
 @theme {
@@ -58,3 +58,17 @@
     }
   }
 }
+
+.hourlyForecast::-webkit-scrollbar {
+  width: 0.3rem;
+}
+
+.hourlyForecast::-webkit-scrollbar-track {
+  background: var(--color-block);
+}
+
+.hourlyForecast::-webkit-scrollbar-thumb {
+  background: var(--color-block-child);
+  border-radius: 10px;
+}
+
