@@ -29,6 +29,12 @@ export type DailyWeather = {
   temperature_2m_min: number;
 };
 
+export type HourlyWeather = {
+  time: Date;
+  temperature_2m: number;
+  weather_code: number;
+};
+
 export const WIND_SPEED_UNITS = [
   { name: "km/h", code: "kmh" },
   { name: "mph", code: "mph" },
