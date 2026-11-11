@@ -18,6 +18,8 @@ export default function HourlyForecast() {
 
   const [showingDay, setShowingDay] = useState<number>(0);
 
+  const [isMenuShowed, SetIsMenuShowed] = useState<boolean>(false);
+
   const [height, setHeight] = useState<number>(0);
 
   useEffect(() => {
@@ -45,6 +47,9 @@ export default function HourlyForecast() {
       <div className="flex justify-between items-center px-5">
         <h2>Hourly forecast</h2>
         <button
+          onClick={() => {
+            SetIsMenuShowed(!isMenuShowed);
+          }}
           className={`bg-neutral-600 py-1 px-3.5 rounded-md flex gap-2 text-sm items-center ${forecastLoadStatus === "success" ? "cursor-pointer" : "pointer-events-none"}`}
         >
           <p className="text-sm">
@@ -62,11 +67,15 @@ export default function HourlyForecast() {
             className="w-2.5"
           />
         </button>
-        {/* <div className="absolute">
+        <div
+          className={`absolute duration-200 bg-block p-4 rounded-lg ${isMenuShowed ? "opacity-100 scale-100 translate-y-0 visible" : "opacity-0 scale-95 -translate-y-4 invisible pointer-events-none"}`}
+        >
           {forecast?.daily.time.map((day, i) => (
-            <p>{day.toLocaleDateString("en-US", { weekday: "long" })}</p>
+            <p key={i}>
+              {day.toLocaleDateString("en-US", { weekday: "long" })}
+            </p>
           ))}
-        </div> */}
+        </div>
       </div>
       <div className="hourlyForecast flex flex-col w-full gap-3 overflow-y-scroll">
         {hourlyWeather.map((weather, i) => (
