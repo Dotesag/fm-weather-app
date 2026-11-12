@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useMainContext } from "@/components/Mainpage";
 
 export default function ApiError() {
-  const { setApiError } = useMainContext();
+  const { setApiError, onRetry } = useMainContext();
 
   return (
     <div className="w-full flex flex-col items-center mt-11">
@@ -17,12 +17,17 @@ export default function ApiError() {
         Something went wrong
       </h1>
       <p className="text-base/4.5 text-neutral-300 w-full max-w-110 text-center mt-6 mb-5">
-        We couldn&rsquo;t connect to the server (API error). Please try again in a few
-        moments.
+        We couldn&rsquo;t connect to the server (API error). Please try again in
+        a few moments.
       </p>
       <button
         className="bg-block rounded-md text-sm py-1.75 px-3 flex gap-2 cursor-pointer"
-        onClick={() => setApiError(false)}
+        onClick={() => {
+          setApiError(false);
+          if (onRetry) {
+            onRetry();
+          }
+        }}
       >
         <Image
           src={"/images/icon-retry.svg"}

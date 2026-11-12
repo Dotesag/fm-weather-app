@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForecastLoadStatusContext } from "../Forecast";
 import { useMainContext } from "@/components/Mainpage";
 import type { DailyWeather } from "@/types/weather";

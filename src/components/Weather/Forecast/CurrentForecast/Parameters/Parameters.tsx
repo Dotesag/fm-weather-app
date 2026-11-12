@@ -15,15 +15,19 @@ export default function Parameters() {
     <div className="justify-between gap-5 flex-wrap  sm:flex grid grid-cols-2 grid-rows-2">
       <div className="current-weather-parameter">
         <h3>Feels like</h3>
-        <p>{temperature ? `${Math.round(temperature)}°` : "–"}</p>
+        <p>{temperature != undefined ? `${Math.round(temperature)}°` : "–"}</p>
       </div>
       <div className="current-weather-parameter">
         <h3>Humidity</h3>
-        <p>{humidity ? `${Math.round(humidity)}%` : "–"}</p>
+        <p>{humidity != undefined ? `${Math.round(humidity)}%` : "–"}</p>
       </div>
       <div className="current-weather-parameter">
         <h3>Wind</h3>
-        <p>{windSpeed ? `${Math.round(windSpeed)} ${windSpeedUnit}` : "–"}</p>
+        <p>
+          {windSpeed != undefined
+            ? `${Math.round(windSpeed)} ${windSpeedUnit}`
+            : "–"}
+        </p>
       </div>
       <div className="current-weather-parameter">
         <h3>Precipitation</h3>

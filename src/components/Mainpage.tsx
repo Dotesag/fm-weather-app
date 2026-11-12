@@ -16,6 +16,8 @@ type MainContextType = {
   setCity: Dispatch<SetStateAction<City | undefined>>;
   apiError: boolean;
   setApiError: Dispatch<SetStateAction<boolean>>;
+  onRetry: (() => void) | null;
+  setOnRetry: Dispatch<SetStateAction<(() => void) | null>>;
   units: Units;
   setUnits: Dispatch<SetStateAction<Units>>;
   forecast: Weather | undefined;
@@ -35,6 +37,7 @@ export function useMainContext() {
 export default function Mainpage() {
   const [city, setCity] = useState<City>();
   const [apiError, setApiError] = useState<boolean>(false);
+  const [onRetry, setOnRetry] = useState<(() => void) | null>(null);
   const [units, setUnits] = useState<Units>({
     windSpeed: "kmh",
     temperature: "celsius",
@@ -49,6 +52,8 @@ export default function Mainpage() {
         setCity,
         apiError,
         setApiError,
+        onRetry,
+        setOnRetry,
         units,
         setUnits,
         forecast,

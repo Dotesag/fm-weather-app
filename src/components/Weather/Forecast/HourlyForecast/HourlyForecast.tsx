@@ -118,7 +118,7 @@ export default function HourlyForecast() {
           <div
             key={i}
             className={`h-12.5 bg-block-child rounded-md border border-border shrink-0 ml-5 mr-[1.05rem] px-2.5 
-              ${Math.round(i / 24) == showingDay ? "visible" : "invisible absolute"}`}
+              ${Math.floor(i / 24) == showingDay ? "visible" : "invisible absolute"}`}
           >
             <div
               className={`w-full h-full flex items-center justify-between ${forecastLoadStatus === "success" ? "opacity-100" : "opacity-0 hidden"}`}

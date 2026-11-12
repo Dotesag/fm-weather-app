@@ -1,4 +1,3 @@
-import { useState } from "react";
 import CityCard from "./CityCard.tsx/CityCard";
 import Parameters from "./Parameters/Parameters";
 

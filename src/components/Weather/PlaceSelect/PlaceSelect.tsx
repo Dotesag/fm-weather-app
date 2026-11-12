@@ -16,12 +16,14 @@ export default function PlaceSelect() {
   const formRef = useRef<HTMLFormElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const { setCity, setApiError } = useMainContext();
+  const { setCity, setApiError, apiError, setOnRetry } = useMainContext();
 
   const abortControllerRef = useRef<AbortController | null>(null);
 
   async function loadCities(cityName: string) {
     try {
+      if (apiError) return;
+
       abortControllerRef.current?.abort();
       abortControllerRef.current = new AbortController();
 
@@ -35,6 +37,9 @@ export default function PlaceSelect() {
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") return;
       setCityLoadStatus("error");
+      setOnRetry(() => () => {
+        void loadCities(inputValue);
+      });
       setApiError(true);
       console.error("Error while loading cities:", error);
     }

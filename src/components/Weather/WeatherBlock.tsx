@@ -8,13 +8,13 @@ export default function WeatherBlock() {
 
   return (
     <div className="flex justify-center">
-      {!apiError && (
-        <div className="w-full flex flex-col gap-9">
-          <PlaceSelect />
-          <Forecast />
-        </div>
-      )}
       {apiError && <ApiError />}
+      <div
+        className={`w-full flex flex-col gap-9 ${apiError ? "invisible" : "visible"}`}
+      >
+        <PlaceSelect />
+        <Forecast />
+      </div>
     </div>
   );
 }

@@ -20,7 +20,8 @@ export function useForecastLoadStatusContext() {
 }
 
 export default function Forecast() {
-  const { setApiError, units, setForecast, city } = useMainContext();
+  const { setApiError, units, setForecast, city, setOnRetry } =
+    useMainContext();
 
   const [forecastLoadStatus, setForecastLoadStatus] = useState<
     "idle" | "loading" | "success" | "error"
@@ -49,8 +50,10 @@ export default function Forecast() {
       } catch (error) {
         if (error instanceof DOMException && error.name === "AbortError")
           return;
-
         setForecastLoadStatus("error");
+        setOnRetry(() => () => {
+          void loadForecast(city);
+        });
         setApiError(true);
         console.error("Error while loading cities:", error);
       }
@@ -59,12 +62,15 @@ export default function Forecast() {
     void loadForecast(city);
 
     return () => controller.abort();
-  }, [city, units, setApiError, setForecast]);
+  }, [city, units, setApiError, setForecast, setOnRetry]);
 
   return (
     <section className="w-full flex gap-6 flex-col sm:flex-row">
       <forecastLoadStatusContext.Provider value={forecastLoadStatus}>
-        <div id="currentAndDaily" className="w-full max-w-162 flex flex-col gap-10">
+        <div
+          id="currentAndDaily"
+          className="w-full max-w-162 flex flex-col gap-10"
+        >
           <CurrentForecast />
           <DailyForecast />
         </div>
