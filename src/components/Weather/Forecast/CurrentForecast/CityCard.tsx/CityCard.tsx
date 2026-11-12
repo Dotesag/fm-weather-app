@@ -11,9 +11,9 @@ export default function CityCard() {
       className={`${forecastLoadStatus === "success" ? "bg-[url(/images/bg-today-large.svg)]" : "bg-block"} w-full h-58 bg-cover rounded-2xl `}
     >
       {forecastLoadStatus !== "loading" && forecast && (
-        <div className="w-full h-full flex justify-between items-center p-5">
+        <div className="w-full h-full flex justify-between items-center p-5 relative">
           <div>
-            <h2 className="text-2xl font-bold">
+            <h2 className="text-2xl font-bold text-wrap max-w-2/3">
               {city?.name}
               {city?.country ? ", " + city.country : ""}
             </h2>
@@ -26,7 +26,7 @@ export default function CityCard() {
               })}
             </p>
           </div>
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-5 absolute right-5">
             <Image
               src={getWeatherIcon(forecast.current.weather_code)}
               width={320}

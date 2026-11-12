@@ -96,7 +96,7 @@ export default function Header() {
           </button>
           <div
             ref={menuRef}
-            className={`absolute z-100 bg-block px-1.5 py-1 rounded-xl border border-border text-sm text-nowrap right-0 mt-2 w-100 max-w-44 duration-200
+            className={`absolute z-100 font-light bg-block px-1.5 py-1 rounded-xl border border-border text-sm text-nowrap right-0 mt-2 w-100 max-w-44 duration-200
               ${isMenuShowed ? "opacity-100 scale-100 translate-y-0 visible" : "opacity-0 scale-95 -translate-y-4 invisible pointer-events-none"} `}
           >
             <button

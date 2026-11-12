@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useForecastLoadStatusContext } from "../Forecast";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMainContext } from "@/components/Mainpage";
 import { HourlyWeather } from "@/types/weather";
 import { getWeatherIcon } from "@/lib/forecast";
@@ -18,7 +18,9 @@ export default function HourlyForecast() {
 
   const [showingDay, setShowingDay] = useState<number>(0);
 
-  const [isMenuShowed, SetIsMenuShowed] = useState<boolean>(false);
+  const [isMenuShowed, setIsMenuShowed] = useState<boolean>(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const [height, setHeight] = useState<number>(0);
 
@@ -34,7 +36,29 @@ export default function HourlyForecast() {
     const observer = new ResizeObserver(update);
     observer.observe(target);
 
-    return () => observer.disconnect();
+    const handleClickOutsideMenu = (event: MouseEvent) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        !buttonRef.current?.contains(event.target as Node)
+      ) {
+        setIsMenuShowed(false);
+      }
+    };
+    window.addEventListener("click", handleClickOutsideMenu);
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (menuRef.current && event.key === "Escape") {
+        setIsMenuShowed(false);
+      }
+    };
+    window.addEventListener("keydown", handleEscape);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("click", handleClickOutsideMenu);
+      window.removeEventListener("keydown", handleEscape);
+    };
   }, []);
 
   const forecastLoadStatus = useForecastLoadStatusContext();
@@ -44,11 +68,12 @@ export default function HourlyForecast() {
       className={`grow bg-block rounded-2xl py-5 flex flex-col gap-3`}
       style={{ height: height }}
     >
-      <div className="flex justify-between items-center px-5">
+      <div className="flex justify-between items-center px-5 relative">
         <h2>Hourly forecast</h2>
         <button
+          ref={buttonRef}
           onClick={() => {
-            SetIsMenuShowed(!isMenuShowed);
+            setIsMenuShowed(!isMenuShowed);
           }}
           className={`bg-neutral-600 py-1 px-3.5 rounded-md flex gap-2 text-sm items-center ${forecastLoadStatus === "success" ? "cursor-pointer" : "pointer-events-none"}`}
         >
@@ -68,12 +93,23 @@ export default function HourlyForecast() {
           />
         </button>
         <div
-          className={`absolute duration-200 bg-block p-4 rounded-lg ${isMenuShowed ? "opacity-100 scale-100 translate-y-0 visible" : "opacity-0 scale-95 -translate-y-4 invisible pointer-events-none"}`}
+          ref={menuRef}
+          className={`w-42 text-sm font-light absolute duration-150 top-9 right-5 gap-1 border flex flex-col items-start border-border shadow-2xl bg-block p-1.5 rounded-xl
+            ${isMenuShowed ? "opacity-100 scale-100 translate-y-0 visible" : "opacity-0 scale-95 -translate-y-4 invisible pointer-events-none"}`}
         >
           {forecast?.daily.time.map((day, i) => (
-            <p key={i}>
-              {day.toLocaleDateString("en-US", { weekday: "long" })}
-            </p>
+            <button
+              key={i}
+              className={`px-1.5 py-1.5 w-full duration-150 cursor-pointer hover:bg-block-child ${showingDay == i ? "bg-block-child rounded-md" : ""}`}
+              onClick={() => {
+                setShowingDay(i);
+                setIsMenuShowed(false);
+              }}
+            >
+              <p className="text-left">
+                {day.toLocaleDateString("en-US", { weekday: "long" })}
+              </p>
+            </button>
           ))}
         </div>
       </div>
@@ -81,7 +117,8 @@ export default function HourlyForecast() {
         {hourlyWeather.map((weather, i) => (
           <div
             key={i}
-            className="h-12.5 bg-block-child rounded-md border border-border shrink-0 ml-5 mr-[1.05rem] px-2.5"
+            className={`h-12.5 bg-block-child rounded-md border border-border shrink-0 ml-5 mr-[1.05rem] px-2.5 
+              ${Math.round(i / 24) == showingDay ? "visible" : "invisible absolute"}`}
           >
             <div
               className={`w-full h-full flex items-center justify-between ${forecastLoadStatus === "success" ? "opacity-100" : "opacity-0 hidden"}`}
