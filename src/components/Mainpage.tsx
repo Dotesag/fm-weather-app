@@ -5,11 +5,14 @@ import {
   Dispatch,
   SetStateAction,
   useContext,
+  useEffect,
+  useRef,
 } from "react";
 import WeatherBlock from "./Weather/WeatherBlock";
 import type { City } from "@/types/city";
 import Header from "./Header/Header";
 import { Weather, type Units } from "@/types/weather";
+import { getCityFromIP } from "@/lib/geocoding";
 
 type MainContextType = {
   city: City | undefined;
@@ -44,6 +47,29 @@ export default function Mainpage() {
     precipitation: "mm",
   });
   const [forecast, setForecast] = useState<Weather>();
+
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  async function loadCityFromIP() {
+    try {
+      if (city) return;
+      abortControllerRef.current?.abort();
+      abortControllerRef.current = new AbortController();
+
+      const ipCity = await getCityFromIP(abortControllerRef.current.signal);
+      setCity(ipCity);
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") return;
+      console.error("Error while loading city from IP:", error);
+    }
+  }
+
+  useEffect(() => {
+    void loadCityFromIP();
+    return () => {
+      abortControllerRef.current?.abort();
+    };
+  }, []);
 
   return (
     <mainContext.Provider

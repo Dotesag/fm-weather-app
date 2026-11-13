@@ -40,7 +40,7 @@ export default function CityCard() {
           </div>
         </div>
       )}
-      {forecastLoadStatus !== "success" && (
+      {forecastLoadStatus === "loading" && (
         <div className="flex flex-col w-full h-full items-center justify-center gap-2">
           <div className="flex gap-2">
             <div className="loading-bulb animate-jump-1"> </div>
