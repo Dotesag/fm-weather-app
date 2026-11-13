@@ -45,5 +45,5 @@ The application will be available on the **http://localhost:3000** address.
 
 ### Links
 
-You can find live site there: https://fm-weather-app.vercel.app/
+You can find live site there: https://fm-weather-app-seven.vercel.app/
 <!-- And there you can find solution on Frontend Mentor:  -->
