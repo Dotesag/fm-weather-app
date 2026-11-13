@@ -33,6 +33,7 @@ export default function DailyForecast() {
               <h3 className="text-center text-base">
                 {dayWeather?.time.toLocaleDateString("en-US", {
                   weekday: "short",
+                  timeZone: forecast?.timezone,
                 })}
               </h3>
               <Image

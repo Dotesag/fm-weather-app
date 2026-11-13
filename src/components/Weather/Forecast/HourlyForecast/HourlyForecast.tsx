@@ -81,6 +81,7 @@ export default function HourlyForecast() {
             {forecastLoadStatus === "success"
               ? forecast?.daily.time[showingDay]?.toLocaleDateString("en-US", {
                   weekday: "long",
+                  timeZone: forecast.timezone,
                 })
               : "–"}
           </p>
@@ -107,7 +108,10 @@ export default function HourlyForecast() {
               }}
             >
               <p className="text-left">
-                {day.toLocaleDateString("en-US", { weekday: "long" })}
+                {day.toLocaleDateString("en-US", {
+                  weekday: "long",
+                  timeZone: forecast.timezone,
+                })}
               </p>
             </button>
           ))}
@@ -134,6 +138,7 @@ export default function HourlyForecast() {
                 <p className="text-base ml-2">
                   {weather?.time.toLocaleTimeString("en-US", {
                     hour: "numeric",
+                    timeZone: forecast?.timezone,
                   })}
                 </p>
               </div>

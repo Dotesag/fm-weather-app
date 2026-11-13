@@ -23,6 +23,7 @@ export default function CityCard() {
                 month: "short",
                 day: "2-digit",
                 year: "numeric",
+                timeZone: forecast?.timezone,
               })}
             </p>
           </div>

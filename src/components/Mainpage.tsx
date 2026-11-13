@@ -50,21 +50,20 @@ export default function Mainpage() {
 
   const abortControllerRef = useRef<AbortController | null>(null);
 
-  async function loadCityFromIP() {
-    try {
-      if (city) return;
-      abortControllerRef.current?.abort();
-      abortControllerRef.current = new AbortController();
-
-      const ipCity = await getCityFromIP(abortControllerRef.current.signal);
-      setCity(ipCity);
-    } catch (error) {
-      if (error instanceof DOMException && error.name === "AbortError") return;
-      console.error("Error while loading city from IP:", error);
-    }
-  }
-
   useEffect(() => {
+    async function loadCityFromIP() {
+      try {
+        abortControllerRef.current?.abort();
+        abortControllerRef.current = new AbortController();
+
+        const ipCity = await getCityFromIP(abortControllerRef.current.signal);
+        setCity((currentCity) => currentCity ?? ipCity);
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError")
+          return;
+        console.error("Error while loading city from IP:", error);
+      }
+    }
     void loadCityFromIP();
     return () => {
       abortControllerRef.current?.abort();
