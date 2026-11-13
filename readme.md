@@ -11,7 +11,7 @@ This is a solution to the [Weather app on Frontend Mentor](https://www.frontendm
 
 ### The challenge
 
-This is a simple weather app which shows current, daily and hourly forecast. It uses Open-Meteo API for geocoding and making forecasts.
+This is a simple weather app which shows current, daily and hourly forecast. It uses Open-Meteo API for geocoding and making forecasts and also ipwho.is for geocoding by IP address of user.
 
 ### Development stack
 
